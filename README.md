@@ -84,7 +84,9 @@ plugins/UUIDMigrate/authme.db
 ```text
 一键转移工具.bat
 ```
-
+```
+注：一键转移工具.bat必须放在服务器根目录
+```
 使用前必须关闭服务器。
 
 工具会把离线 UUID 数据归档到：
@@ -224,7 +226,9 @@ plugins/UUIDMigrate/authme.db
 ### 4. 运行一键归档工具
 
 关闭服务器状态下运行：
-
+```
+注：一键转移工具.bat必须放在服务器根目录
+```
 ```text
 一键转移工具.bat
 ```
