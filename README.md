@@ -234,7 +234,7 @@ plugins/UUIDMigrate/authme.db
 注：一键转移工具.bat必须放在服务器根目录
 ```
 
-输入 `snapshot-id` 并确认执行。
+输入 snapshot-id 并会提示服务器是否关闭，输入y确认执行。
 
 ### 5. 启动服务器，保持 PREPARE 模式
 
