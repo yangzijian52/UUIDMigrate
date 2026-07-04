@@ -13,7 +13,7 @@ dist/UUIDMigrate-0.1.0-.jar
 运行要求：
 
 - Paper API: `26.2`
-- Java: `21`
+- Java: `25`
 - 服务器需要先完成离线服数据快照归档，再进入认领阶段
 - 正版服务器内可以不安装 AuthMe，但需要把旧 AuthMe 的 SQLite 数据库放到本插件目录
 
