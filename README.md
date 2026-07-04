@@ -245,10 +245,10 @@ mode: PREPARE
 snapshot-id: <刚才归档时输入的 snapshot-id>
 ```
 
-启动服务器后执行：
+启动服务器后在命令行执行：
 
 ```text
-/uuidmigrate admin prepare-all
+uuidmigrate admin prepare-all
 ```
 
 该命令会按固定顺序执行：
@@ -281,10 +281,10 @@ plugins/UUIDMigrate/reports
 mode: CLAIM
 ```
 
-然后执行：
+然后在命令行执行：
 
 ```text
-/uuidmigrate reload
+uuidmigrate reload
 ```
 
 确认控制台或游戏内输出当前模式为 `CLAIM`。
