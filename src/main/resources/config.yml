@@ -1,0 +1,87 @@
+# UUIDMigrate 配置文件
+#
+# mode 可选：
+# - PREPARE: 管理员扫描并预处理阶段
+# - CLAIM: 玩家进入服务器后执行 /uuidmigrate claim 认领旧数据
+mode: PREPARE
+
+# 旧数据归档根目录，相对于服务端根目录
+legacy-root: plugins/UUIDMigrate/legacy-data
+
+# 本次迁移快照编号
+# 必须与“一键转移工具.bat”输入的 snapshot-id 完全一致
+snapshot-id: 2026-04-12-before-online-switch
+
+# 玩家执行认领时，临时封禁秒数
+temporary-ban-seconds: 300
+
+# 玩家执行认领后被踢下线时显示的提示
+kick-message: "正在迁移你的旧数据，请稍后重新进入服务器"
+
+# 临时封禁原因
+ban-reason: "UUIDMigrate: 数据迁移中"
+
+# 扫描时是否忽略 Floodgate 基岩前缀玩家
+skip-floodgate-players: true
+
+# Floodgate 基岩玩家名前缀列表
+floodgate-prefixes:
+  - "PE"
+
+# 是否允许使用离线 UUID 回退匹配
+# 正常迁移建议保持 false
+allow-offline-uuid-fallback: false
+
+# 是否允许同一个正版 UUID 重复认领
+allow-repeat-claim: false
+
+# 演练模式。true 时只允许扫描，不允许写入
+dry-run: false
+
+# 是否输出更详细的日志
+log-detail: true
+
+# Residence 预处理时使用的临时占位人
+residence-holder:
+  uuid: "11111111-1111-1111-1111-111111111111"
+  name: "UUIDMigrate_Residence"
+
+# QuickShop 预处理时使用的临时占位人
+quickshop-holder:
+  uuid: "22222222-2222-2222-2222-222222222222"
+  name: "UUIDMigrate_Shop"
+
+# 归档工具校验设置
+archive-tool:
+  # 是否要求归档目录中必须存在清单标记文件
+  expected-marker-enabled: true
+  # 清单文件名前缀
+  expected-manifest-prefix: "archive-manifest-"
+
+# 玩家认领前的 AuthMe 旧账号密码验证
+# 密码只从下一条聊天消息读取，并且该聊天会被插件取消，不进入公屏。
+authme-claim-verification:
+  # 默认读取本插件目录下的 authme.db；即 plugins/UUIDMigrate/authme.db
+  # 兼容旧配置：以 plugins/ 开头的相对路径仍按服务端根目录解析。
+  sqlite-path: authme.db
+  table: authme
+  username-column: username
+  password-column: password
+  # 当前镜像服 AuthMe 配置为 passwordHash: SHA256，hash 形态为 $SHA$<salt>$<digest>
+  pending-timeout-seconds: 60
+
+# 各适配器开关
+adapters:
+  vanilla: true
+  essentials: true
+  xconomy: true
+  luckperms: true
+  residence: true
+  quickshop: true
+  playertitle: true
+  playertask: true
+  litesignin: true
+  xykit: true
+  simpleplaytime: true
+  holomobhealth: true
+  fakeplayer: true

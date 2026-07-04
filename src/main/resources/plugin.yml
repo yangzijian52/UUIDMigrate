@@ -1,0 +1,35 @@
+name: UUIDMigrate
+version: ${project.version}
+main: cn.uuidmigrate.UUIDMigratePlugin
+api-version: "26.2"
+author: Codex
+description: Migrate offline UUID player data to online UUID for Paper servers.
+
+commands:
+  uuidmigrate:
+    description: UUID migration management command
+    usage: /uuidmigrate <status|claim|reload|admin>
+    aliases: [umigrate]
+
+permissions:
+  uuidmigrate.reload:
+    default: op
+  uuidmigrate.player.claim:
+    default: true
+  uuidmigrate.player.status:
+    default: true
+  uuidmigrate.admin.scan:
+    default: op
+  uuidmigrate.admin.report:
+    default: op
+  uuidmigrate.admin.prepare:
+    default: op
+  uuidmigrate.admin.resolve:
+    default: op
+  uuidmigrate.admin.forceclaim:
+    default: op
+  uuidmigrate.admin.rollback:
+    default: op
+  uuidmigrate.admin.unlock:
+    default: op
+

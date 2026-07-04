@@ -1,0 +1,9 @@
+target/
+.mvnrepo/
+.tools/
+.sandbox-home/
+.codex-verify-agent/
+.claude/
+tmp_residence_extract/
+*.log
+*.tmp
