@@ -212,7 +212,9 @@ public final class VanillaAdapter implements MigrationAdapter {
             }
         }
 
-        syncOperatorState(context);
+        if (changed) {
+            syncOperatorState(context);
+        }
     }
 
     private void syncOperatorState(ClaimContext context) throws Exception {
