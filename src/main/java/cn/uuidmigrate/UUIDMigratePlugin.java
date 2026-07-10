@@ -16,6 +16,7 @@ import cn.uuidmigrate.service.PrepareService;
 import cn.uuidmigrate.service.ReportService;
 import cn.uuidmigrate.service.RollbackService;
 import cn.uuidmigrate.service.ScanService;
+import cn.uuidmigrate.service.TameableOwnerMigrationService;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,6 +35,7 @@ public final class UUIDMigratePlugin extends JavaPlugin {
     private RollbackService rollbackService;
     private AuthMePasswordVerifier authMePasswordVerifier;
     private PendingClaimService pendingClaimService;
+    private TameableOwnerMigrationService tameableOwnerMigrationService;
 
     @Override
     public void onEnable() {
@@ -53,7 +55,8 @@ public final class UUIDMigratePlugin extends JavaPlugin {
             this.reportService = new ReportService(this, configService, indexDatabase, adapterRegistry);
             this.prepareService = new PrepareService(this, configService, indexDatabase, adapterRegistry);
             this.rollbackService = new RollbackService(this, configService, indexDatabase, adapterRegistry, loginBlockService, claimRuntimeStateService);
-            this.claimService = new ClaimService(this, configService, indexDatabase, adapterRegistry, loginBlockService, claimRuntimeStateService, rollbackService);
+            this.tameableOwnerMigrationService = new TameableOwnerMigrationService(this, indexDatabase);
+            this.claimService = new ClaimService(this, configService, indexDatabase, adapterRegistry, loginBlockService, claimRuntimeStateService, rollbackService, tameableOwnerMigrationService);
             this.authMePasswordVerifier = new AuthMePasswordVerifier(configService);
             this.pendingClaimService = new PendingClaimService(this, configService, claimService, authMePasswordVerifier);
 
@@ -65,6 +68,7 @@ public final class UUIDMigratePlugin extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new LoginBlockListener(loginBlockService), this);
             getServer().getPluginManager().registerEvents(new PendingClaimListener(pendingClaimService), this);
             getServer().getPluginManager().registerEvents(new ClaimPromptListener(this, configService, indexDatabase), this);
+            getServer().getPluginManager().registerEvents(tameableOwnerMigrationService, this);
 
             var recoveredClaimIds = rollbackService.recoverInterruptedClaimsOnStartup();
             if (!recoveredClaimIds.isEmpty()) {

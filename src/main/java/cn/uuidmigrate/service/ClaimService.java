@@ -37,6 +37,7 @@ public final class ClaimService {
     private final LoginBlockService loginBlockService;
     private final ClaimRuntimeStateService claimRuntimeStateService;
     private final RollbackService rollbackService;
+    private final TameableOwnerMigrationService tameableOwnerMigrationService;
     private final Gson gson = new Gson();
 
     public ClaimService(
@@ -46,7 +47,8 @@ public final class ClaimService {
             AdapterRegistry adapterRegistry,
             LoginBlockService loginBlockService,
             ClaimRuntimeStateService claimRuntimeStateService,
-            RollbackService rollbackService
+            RollbackService rollbackService,
+            TameableOwnerMigrationService tameableOwnerMigrationService
     ) {
         this.plugin = plugin;
         this.configService = configService;
@@ -55,6 +57,7 @@ public final class ClaimService {
         this.loginBlockService = loginBlockService;
         this.claimRuntimeStateService = claimRuntimeStateService;
         this.rollbackService = rollbackService;
+        this.tameableOwnerMigrationService = tameableOwnerMigrationService;
     }
 
     public ClaimPreview preview(Player player, String legacyName) throws Exception {
@@ -320,6 +323,11 @@ public final class ClaimService {
             }
 
             indexDatabase.markClaimSucceeded(context.claimId(), context.legacyUuid(), context.newUuid(), context.newName());
+            try {
+                tameableOwnerMigrationService.afterClaimSucceeded(context);
+            } catch (Exception exception) {
+                plugin.getLogger().warning("Tameable owner migration failed after claim success: " + exception.getMessage());
+            }
             releaseLoginBlock = true;
             plugin.getLogger().info("Claim completed: legacy=" + context.legacyUuid() + " -> new=" + context.newUuid());
         } catch (Exception exception) {

@@ -518,6 +518,36 @@ public final class IndexDatabase implements AutoCloseable {
         return Optional.empty();
     }
 
+    public Map<UUID, ClaimedUuidBindingRow> loadClaimedUuidBindings() throws SQLException {
+        Map<UUID, ClaimedUuidBindingRow> rows = new LinkedHashMap<>();
+        String sql = """
+                SELECT legacy_uuid, claimed_by_uuid, COALESCE(claimed_by_name, '') AS claimed_by_name
+                FROM legacy_account
+                WHERE claim_status = ?
+                  AND claimed_by_uuid IS NOT NULL
+                  AND TRIM(claimed_by_uuid) <> ''
+                ORDER BY claimed_at, legacy_uuid
+                """;
+
+        try (Connection connection = openConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, ClaimStatus.CLAIMED.name());
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    UUID legacyUuid = UUID.fromString(resultSet.getString("legacy_uuid"));
+                    rows.put(legacyUuid, new ClaimedUuidBindingRow(
+                            legacyUuid,
+                            UUID.fromString(resultSet.getString("claimed_by_uuid")),
+                            resultSet.getString("claimed_by_name")
+                    ));
+                }
+            }
+        }
+
+        return rows;
+    }
+
     public Optional<UUID> findResolvedLegacyUuid(String legacyName) throws SQLException {
         String sql = """
                 SELECT chosen_legacy_uuid
@@ -1437,6 +1467,9 @@ public final class IndexDatabase implements AutoCloseable {
     }
 
     public record ClaimPromptCandidateRow(UUID legacyUuid, String legacyName, String primaryName, ClaimStatus claimStatus) {
+    }
+
+    public record ClaimedUuidBindingRow(UUID legacyUuid, UUID newUuid, String newName) {
     }
 
     public record AssetRow(UUID legacyUuid, String primaryName, String adapter, String assetKey) {
