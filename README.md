@@ -7,12 +7,12 @@ UUIDMigrate 是一个用于 Minecraft Paper 服务器的离线 UUID 转正版 UU
 当前构建文件：
 
 ```text
-dist/UUIDMigrate-0.1.0-.jar
+dist/UUIDMigrate-0.1.1-SNAPSHOT.jar
 ```
 
 运行要求：
 
-- Paper API: `26.2`
+- Paper API: `26.3.build.41-alpha`
 - Java: `25`
 - 服务器需要先完成离线服数据快照归档，再进入认领阶段
 - 正版服务器内可以不安装 AuthMe，但需要把旧 AuthMe 的 SQLite 数据库放到本插件目录
@@ -35,7 +35,7 @@ dist/UUIDMigrate-0.1.0-.jar
 - HoloMobHealth
 - fakeplayer
 
-Vanilla 玩家数据同时支持旧版路径和 Paper 26.2 路径。
+Vanilla 玩家数据同时支持旧版路径和 Paper 26.2/26.3 路径。
 
 旧版路径：
 
@@ -45,7 +45,7 @@ world/stats
 world/advancements
 ```
 
-Paper 26.2 路径：
+Paper 26.2/26.3 路径：
 
 ```text
 world/players/data
@@ -58,7 +58,7 @@ world/players/advancements
 把插件 jar 放到服务器插件目录：
 
 ```text
-plugins/UUIDMigrate-0.1.0-.jar
+plugins/UUIDMigrate-0.1.1-SNAPSHOT.jar
 ```
 
 第一次启动后会生成插件目录：
@@ -207,10 +207,10 @@ adapters:
 
 ### 2. 放入插件 jar
 
-把 `dist/UUIDMigrate-0.1.0-.jar` 放入：
+把 `dist/UUIDMigrate-0.1.1-SNAPSHOT.jar` 放入：
 
 ```text
-plugins/UUIDMigrate-0.1.0-.jar
+plugins/UUIDMigrate-0.1.1-SNAPSHOT.jar
 ```
 
 ### 3. 放入 AuthMe 数据库
@@ -716,7 +716,7 @@ plugins/UUIDMigrate/authme.db
 - 旧账号已经 CLAIMED 或 LOCKED
 - 旧账号被配置为跳过，例如 Floodgate 玩家
 
-### Paper 26.2 玩家数据没迁移怎么办？
+### Paper 26.3 玩家数据没迁移怎么办？
 
 确认一键归档工具和插件版本是当前版本。当前版本已经支持：
 
