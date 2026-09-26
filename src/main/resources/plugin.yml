@@ -2,7 +2,7 @@ name: UUIDMigrate
 version: ${project.version}
 main: cn.uuidmigrate.UUIDMigratePlugin
 api-version: "26.3"
-author: Codex
+author: yangzijian52
 description: Migrate offline UUID player data to online UUID for Paper servers.
 
 commands:

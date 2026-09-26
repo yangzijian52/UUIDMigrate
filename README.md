@@ -7,7 +7,7 @@ UUIDMigrate 是一个用于 Minecraft Paper 服务器的离线 UUID 转正版 UU
 当前构建文件：
 
 ```text
-dist/UUIDMigrate-0.1.1-SNAPSHOT.jar
+dist/UUIDMigrate-0.1.1.jar
 ```
 
 运行要求：
@@ -58,7 +58,7 @@ world/players/advancements
 把插件 jar 放到服务器插件目录：
 
 ```text
-plugins/UUIDMigrate-0.1.1-SNAPSHOT.jar
+plugins/UUIDMigrate-0.1.1.jar
 ```
 
 第一次启动后会生成插件目录：
@@ -207,10 +207,10 @@ adapters:
 
 ### 2. 放入插件 jar
 
-把 `dist/UUIDMigrate-0.1.1-SNAPSHOT.jar` 放入：
+把 `dist/UUIDMigrate-0.1.1.jar` 放入：
 
 ```text
-plugins/UUIDMigrate-0.1.1-SNAPSHOT.jar
+plugins/UUIDMigrate-0.1.1.jar
 ```
 
 ### 3. 放入 AuthMe 数据库
@@ -731,3 +731,7 @@ world/players/advancements
 ### QuickShop 出现 H2 锁库怎么办？
 
 优先确认服务器是否关闭或 QuickShop 是否仍持有数据库连接。正常在线 prepare 应使用 QuickShop-Hikari 托管连接，日志应显示 `quickshop-managed`。如果回退到 direct H2 或出现 lock，需要先处理数据库占用问题。
+
+## 许可证
+
+UUIDMigrate 使用 [MIT License](LICENSE)：允许自由使用、复制、修改、分发和商用，但必须保留原版权声明与许可文本。
